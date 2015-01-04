@@ -41,24 +41,23 @@ function show_result() {
 }
 
 $special_offer_conditions = array(
-  'name' => 'игрушка детская велосипед',
-  'количество заказано' => 3,
-  'осталось на складе' => 3
+    'name' => 'игрушка детская велосипед',
+    'количество заказано' => 3,
+    'осталось на складе' => 3
 );
 $special_offer_value = 30;
 $special_offer_text = 'Скидка по акции: "купи 3 и больше детских велосипедов и получи скидку 30%!"';
 
 //проверка на АКЦИЮ
-function check_offer($item){    
+function check_offer($item) {
     global $special_offer_conditions;
-    foreach($special_offer_conditions as $key=>$value){
-        if(gettype($value)=='string'){
-            if($item[$key] != $value){
+    foreach ($special_offer_conditions as $key => $value) {
+        if (gettype($value) == 'string') {
+            if ($item[$key] != $value) {
                 return false;
             }
-        }
-        else {
-            if($item['params'][$key] < $value) {
+        } else {
+            if ($item['params'][$key] < $value) {
                 return false;
             }
         }
@@ -67,8 +66,7 @@ function check_offer($item){
     return true;
 }
 
-
-
+//Вывод элемента корзины
 function show_item($item, $stock) {
     static $count = 1;
     global $result;
@@ -92,11 +90,11 @@ function show_item($item, $stock) {
     if ($stock >= 0) {
         echo '<br>' . $count . '. ' . $item['name'] . '<br>Количество:' . $cur_offer . ' шт. по цене: ' . $cur_price . ' руб.';
         //есть скидка на товар
-        if ($cur_discount > 0) { 
+        if ($cur_discount > 0) {
             echo '<br>Скидка:' . $cur_discount . '% сумма со скидкой:' . ($cur_discount_price * $cur_offer) . ' руб.';
-            echo (check_offer($item)==true) ? '<br>'.$special_offer_text:''; 
+            echo (check_offer($item) == true) ? '<br>' . $special_offer_text : '';
             $result['sum']+= ($cur_discount_price * $cur_offer);
-        } 
+        }
         //Нет скидки
         else {
             echo '<br>Сумма:' . ($cur_price * $cur_offer) . ' руб.';
@@ -112,9 +110,9 @@ function show_item($item, $stock) {
             //Есть скидки
             if ($cur_discount > 0) {
                 echo '<br>Скидка:' . $cur_discount . '% сумма со скидкой:' . ($cur_discount_price * $cur_stock) . ' руб.';
-                echo (check_offer($item)==true) ? '<br>'.$special_offer_text:''; 
+                echo (check_offer($item) == true) ? '<br>' . $special_offer_text : '';
                 $result['sum']+= ($cur_discount_price * $cur_stock);
-            } 
+            }
             //Нет скидки
             else {
                 echo '<br>Сумма:' . ($cur_price * $cur_stock) . ' руб.<br>';
