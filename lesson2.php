@@ -1,43 +1,61 @@
-<?php
-$timestamp = time();
-$dates = array(
-    rand(0,$timestamp),
-    rand(0,$timestamp),
-    rand(0,$timestamp),
-    rand(0,$timestamp),
-    rand(0,$timestamp),
-);
-$textdates = array (
-    date("l d.m.y",$dates[0]),
-    date("l d.m.y",$dates[1]),
-    date("l d.m.y",$dates[2]),
-    date("l d.m.y",$dates[3]),
-    date("l d.m.y",$dates[4]),
-);
-$days = array (
-  (int)date("j",$dates[0]),  
-  (int)date("j",$dates[1]),  
-  (int)date("j",$dates[2]),  
-  (int)date("j",$dates[3]),  
-  (int)date("j",$dates[4])  
-);
-$months = array (
-    (int)date("m",$dates[0]),
-    (int)date("m",$dates[1]),
-    (int)date("m",$dates[2]),
-    (int)date("m",$dates[3]),
-    (int)date("m",$dates[4])
-);
-$minday = min($days);
-$maxmonth = max($months);
-var_dump($textdates);
-echo '<br>Ok, let me see, the min day is: "'.$minday.'", and the max month: "'.$maxmonth.'"';
+<?
+echo 'Задание 1:'
+?> 
+<br>
+<?
+$name = 'Petr';
+$age = 24;
+echo 'Меня зовут '.$name;
+?> 
+<br>
+<?
+echo 'Мне '.$age.' года';
+unset($name,$age);
+?>
+<br><br>
+<?
+echo 'Задание 2:';
+?> 
+<br>
+<?
+define('CITY','Novosibirsk');
 
-array_multisort($dates,SORT_ASC);
-//var_dump($textdates);
-$selected = date("d.m.y h:i:s",array_pop($dates));
-echo '<br>'.date_default_timezone_get();
-echo '<br>Selected date is: '.$selected;
-date_default_timezone_set('America/New_York');
-echo '<br>'.date_default_timezone_get();
+if (defined('CITY')) {
+    if(CITY){
+    echo CITY;
+    }
+}
+define('CITY','Berdsk');
+?><br><br>
+<?
+echo 'Задание 3:';
+?> 
+<br>
+<?
+$book = array(
+'title' => '451 градус по Фаренгейту',
+'author' =>' Брэдбери, Рэй Дуглас',
+'pages' =>'700'
+);
+echo 'Недавно я прочитал книгу '.$book['title'].', написанную автором'.$book['author'].', я осилил все '.$book['pages'].' страниц, мне она очень понравилась';
+?>
+<br><br>
+<?
+echo 'Задание 4:';
+?> 
+<br>
+<?
+$book1 = array (
+'title' => '451 градус по Фаренгейту',
+'author' =>' Брэдбери Рэй Дуглас',
+'pages' =>'700'
+);
+$book2 = array (
+'title' => 'Братья Карамазовы',
+'author' =>'Достоевский Федор Михайлович',
+'pages' =>'150'
+);
+$books =array($book1,$book2);
+echo 'Недавно я прочитал книги '.$books[0]['title'].' и '.$books[1]['title'].',написанные соответственно авторами '.$books[0]['author']. ' и '.$books[1]['author'].
+        ', я осилил в сумме '.($books[0]['pages']+$books[1]['pages']).' страниц, не ожидал от себя подобного!';
 ?>
