@@ -51,16 +51,13 @@ $special_offer_text = 'Скидка по акции: "купи 3 и больше
 //проверка на АКЦИЮ
 function check_offer($item) {
     global $special_offer_conditions;
+    if($special_offer_conditions['name'] != $item['name']) {
+        return false;
+    }
     foreach ($special_offer_conditions as $key => $value) {
-        if (gettype($value) == 'string') {
-            if ($item[$key] != $value) {
+        if ($key != 'name' && $item['params'][$key] < $value) {
                 return false;
             }
-        } else {
-            if ($item['params'][$key] < $value) {
-                return false;
-            }
-        }
     }
 
     return true;
