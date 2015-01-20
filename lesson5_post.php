@@ -23,22 +23,21 @@ function print_all_news() {
     }
 }
 
-function print_article() {
+function print_article($id) {
     global $news;
-    $_id = $_POST['id'];
 
-    if ($_id < count($news)) {
-        echo $news[$_POST['id']];
+    if ($id < count($news)) {
+        echo $news[$id];
     } else {
         print_all_news();
     }
 }
 if(isset($_POST['id']) && isset($_POST['submit'])) {
-    if(!preg_match('/[a-zA-Z]/', $_POST['id'])) {
-    print_article();
+    if(preg_match('/^[0-9]+$/', $_POST['id'])) {
+    print_article($_POST['id']);
     }
     else{
-        echo 'Ид должен быть числом!<br>';
+        echo 'Ид должен быть целым числом!<br>';
     }
 }
 elseif (!isset($_POST['id']) && isset($_POST['submit'])){

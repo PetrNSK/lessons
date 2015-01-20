@@ -23,18 +23,16 @@ function print_all_news() {
     }
 }
 
-function print_article() {
+function print_article($id) {
     global $news;
-    $_id = $_GET['id'];
-
-    if ($_id < count($news)) {
-        echo $news[$_GET['id']];
+    if ($id < count($news)) {
+        echo $news[$id];
     } else {
         print_all_news();
     }
 }
 if(isset($_GET['id'])) {
-print_article();
+print_article($_GET['id']);
 }
 else{
 header("HTTP/1.0 404 Not Found");
