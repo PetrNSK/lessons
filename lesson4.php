@@ -49,7 +49,7 @@ $special_offer_value = 30;
 $special_offer_text = 'Скидка по акции: "купи 3 и больше детских велосипедов и получи скидку 30%!"';
 
 //проверка на АКЦИЮ
-function check_offer($item) {
+function check_offer($item,$stock) {
     global $special_offer_conditions;
     if($special_offer_conditions['name'] != $item['name']) {
         return false;
@@ -57,7 +57,10 @@ function check_offer($item) {
         if ($item['params']['количество заказано'] < $special_offer_conditions['количество заказано']) {
                 return false;
             }
-
+    //ИСПРАВИЛ ОШИБКУ СО СКИДКОЙ
+    if($stock<$special_offer_conditions['количество заказано']) {
+        return false;
+    }
     return true;
 }
 
@@ -71,7 +74,7 @@ function show_item($item, $stock) {
     $cur_offer = $item['params']['количество заказано'];
     $cur_stock = $item['params']['осталось на складе'];
     $cur_out_stock = -$stock;
-    switch (check_offer($item)) {
+    switch (check_offer($item,$cur_stock)) {
         case true:
             $cur_discount = $special_offer_value;
             break;
